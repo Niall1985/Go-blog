@@ -1,2 +1,4 @@
 [{"id":1,"title":"My first blog website","username":"user1","content":"Hello, this is my first blog website\r\n"},
-{"id":2,"title":"My second blog","username":"user1","content":"Hello, this is my second test blog"}]
+{"id":2,"title":"My second blog","username":"user1","content":"Hello, this is my second test blog"},
+{"id":3,"title":"Post3","username":"user1","content":"Superstar by Jamelia"},
+{"id":4,"title":"Post4","username":"user1","content":"Joe root scored a century today"}]
