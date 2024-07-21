@@ -1,50 +1,3 @@
-// package models
-
-// type Post struct {
-// 	ID      int
-// 	Title   string
-// 	Content string
-// }
-
-// var posts = []Post{}
-// var idCounter = 1
-
-// func GetAllPosts() []Post {
-// 	return posts
-// }
-
-// func GetPostByID(id int) *Post {
-// 	for _, post := range posts {
-// 		if post.ID == id {
-// 			return &post
-// 		}
-// 	}
-// 	return nil
-// }
-
-// func CreatePost(title, content string) {
-// 	posts = append(posts, Post{ID: idCounter, Title: title, Content: content})
-// 	idCounter++
-// }
-
-// func UpdatePost(updatedPost *Post) {
-// 	for i, post := range posts {
-// 		if post.ID == updatedPost.ID {
-// 			posts[i] = *updatedPost
-// 			break
-// 		}
-// 	}
-// }
-
-// func DeletePost(id int) {
-// 	for i, post := range posts {
-// 		if post.ID == id {
-// 			posts = append(posts[:i], posts[i+1:]...)
-// 			break
-// 		}
-// 	}
-// }
-
 package models
 
 import (
@@ -54,21 +7,22 @@ import (
 )
 
 type Post struct {
-	ID      int    `json:"id"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	ID       int    `json:"id"`
+	Title    string `json:"title"`
+	Username string `json:"username"`
+	Content  string `json:"content"`
 }
 
 var (
 	posts     []Post
 	idCounter = 1
-	mu        sync.Mutex
+	mut       sync.Mutex
 	filePath  = "posts.json" // Path to the JSON file
 )
 
 func LoadPosts() error {
-	mu.Lock()
-	defer mu.Unlock()
+	mut.Lock()
+	defer mut.Unlock()
 
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -90,8 +44,8 @@ func LoadPosts() error {
 }
 
 func savePosts() error {
-	mu.Lock()
-	defer mu.Unlock()
+	mut.Lock()
+	defer mut.Unlock()
 
 	file, err := os.Create(filePath)
 	if err != nil {
@@ -116,8 +70,8 @@ func GetPostByID(id int) *Post {
 	return nil
 }
 
-func CreatePost(title, content string) {
-	post := Post{ID: idCounter, Title: title, Content: content}
+func CreatePost(title, username, content string) {
+	post := Post{ID: idCounter, Title: title, Username: username, Content: content}
 	posts = append(posts, post)
 	idCounter++
 	savePosts() // Save posts to JSON file
