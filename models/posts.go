@@ -74,14 +74,14 @@ func CreatePost(title, username, content string) {
 	post := Post{ID: idCounter, Title: title, Username: username, Content: content}
 	posts = append(posts, post)
 	idCounter++
-	savePosts() // Save posts to JSON file
+	savePosts()
 }
 
 func UpdatePost(updatedPost *Post) {
 	for i, post := range posts {
 		if post.ID == updatedPost.ID {
 			posts[i] = *updatedPost
-			savePosts() // Save posts to JSON file
+			savePosts()
 			break
 		}
 	}
@@ -91,7 +91,7 @@ func DeletePost(id int) {
 	for i, post := range posts {
 		if post.ID == id {
 			posts = append(posts[:i], posts[i+1:]...)
-			savePosts() // Save posts to JSON file
+			savePosts()
 			break
 		}
 	}
